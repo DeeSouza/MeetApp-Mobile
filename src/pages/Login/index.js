@@ -1,14 +1,56 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import PropTypes from 'prop-types';
+import { Image } from 'react-native';
+import logo from '~/assets/images/meetapp-logo.png';
 
 import Background from '~/components/Background';
 
-// import { Container } from './styles';
+import {
+	Container,
+	Form,
+	FormInput,
+	SubmitButton,
+	SignLink,
+	SignLinkText,
+} from './styles';
 
-export default function Login() {
+export default function Login({ navigation }) {
 	return (
 		<Background>
-			<Text>Login</Text>
+			<Container>
+				<Image source={logo} />
+
+				<Form>
+					<FormInput
+						icon="mail-outline"
+						placeholder="Digite seu e-mail"
+						keyboardType="email-address"
+						autoCorrect={false}
+						autoCapitalize="none"
+						returnKeyType="next"
+					/>
+					<FormInput
+						icon="lock-outline"
+						placeholder="Digite sua senha"
+						returnKeyType="send"
+						secureTextEntry
+					/>
+
+					<SubmitButton loading={false} onPress={() => {}}>
+						ENTRAR
+					</SubmitButton>
+				</Form>
+
+				<SignLink onPress={() => navigation.navigate('Register')}>
+					<SignLinkText>Criar conta grátis</SignLinkText>
+				</SignLink>
+			</Container>
 		</Background>
 	);
 }
+
+Login.propTypes = {
+	navigation: PropTypes.shape({
+		navigate: PropTypes.func.isRequired,
+	}).isRequired,
+};
