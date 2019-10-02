@@ -1,10 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import createRouter from './routes';
 
 export default function App() {
-	return (
-		<View>
-			<Text>Opa</Text>
-		</View>
-	);
+	const Routes = createRouter(false);
+
+	return <Routes />;
 }
