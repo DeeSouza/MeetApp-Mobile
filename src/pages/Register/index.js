@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
 import Background from '~/components/Background';
 
@@ -8,7 +8,7 @@ import Background from '~/components/Background';
 export default function Register() {
 	return (
 		<Background>
-			<View>ORei</View>
+			<Text>ORei</Text>
 		</Background>
 	);
 }
