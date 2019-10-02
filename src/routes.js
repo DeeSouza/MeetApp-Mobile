@@ -8,7 +8,7 @@ export default (isSigned = false) =>
 		createSwitchNavigator(
 			{ Login, Register },
 			{
-				initialRouteName: isSigned ? 'App' : 'Sign',
+				initialRouteName: isSigned ? 'App' : 'Login',
 			},
 		),
 	);
