@@ -4,6 +4,8 @@ import reactotronSaga from 'reactotron-redux-saga';
 
 if (__DEV__) {
 	const tron = Reactotron.configure({
+		name: 'MeetApp Mobile',
+		port: 8081,
 		host: 'localhost',
 	})
 		.useReactNative()

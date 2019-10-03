@@ -9,13 +9,22 @@
 
 Essa aplicação será utilizada para se inscrever em meetups e não contará com a possibilidade de criar um meetup. Para isso, utilize a página na web.
 
+## Important
+
+Essa aplicação funciona apenas em dispositivos com sistema operacional Android. Isto é, não foi testado e nem executado em um sistema operacional iOS por falta de equipamento.
+
+### Device Test:
+
+- Moto G4 Play
+- Android 7.1.1
+
 ## Install Dependencies
 
 	yarn
 
 ## Run
 
-	react-native run-androit
+	react-native run-android
 
 ## Execute Metro Bundler
 
@@ -34,7 +43,7 @@ Essa aplicação será utilizada para se inscrever em meetups e não contará co
 - Axios
 - Immer
 - History
--
+
 ## My Setup Dev
 
 - ESLint
@@ -42,3 +51,13 @@ Essa aplicação será utilizada para se inscrever em meetups e não contará co
 - Editor Config
 - Reactotron
 - Reactotron Redux + Saga Plugin
+
+## Reactotron Config
+
+`src/config/ReactotronConfig.js`
+
+| Item | Value     |
+| ---- | --------- |
+| Port | 8081      |
+| Host | localhost |
+---
