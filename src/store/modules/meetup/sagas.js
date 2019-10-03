@@ -14,10 +14,8 @@ import {
  * Create a meetup
  * @param {object} payload
  */
-
 export function* createMeet({ payload }) {
 	try {
-		console.tron.log(payload);
 		yield call(api.post, '/meetups', payload.meet);
 
 		Alert.alert('Yeeah!', 'Meetup criado com sucesso!');
@@ -57,7 +55,7 @@ export function* updateMeet({ payload }) {
 }
 
 /**
- *
+ * Cancel meetapp
  * @param {string} payload
  */
 export function* cancelMeet({ payload }) {

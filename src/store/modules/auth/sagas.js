@@ -20,9 +20,6 @@ export function* doLogin({ payload }) {
 
 		// Call Action (PUT)
 		yield put(loginSuccess(token, user));
-
-		// Redirect to Dashboard if Logged
-		// history.push('dashboard');
 	} catch (error) {
 		// Call Action (PUT)
 		yield put(loginFailure());
@@ -44,13 +41,8 @@ export function setToken({ payload }) {
 	}
 }
 
-export function logoutApp() {
-	// history.push('/');
-}
-
 // Observers
 export default all([
 	takeLatest('@auth/LOGIN_REQUEST', doLogin),
 	takeLatest('persist/REHYDRATE', setToken),
-	takeLatest('@auth/LOGOUT_REQUEST', logoutApp),
 ]);

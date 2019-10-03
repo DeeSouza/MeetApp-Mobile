@@ -25,8 +25,6 @@ export function* createUser({ payload }) {
 		Alert.alert('Yeeah!', 'Conta criada com sucesso! Faça o login.');
 
 		yield put(createUserSuccess());
-
-		// history.push('/');
 	} catch (error) {
 		Alert.alert('Atenção!', error.response.data.error);
 
