@@ -6,7 +6,12 @@ import Register from './pages/Register';
 export default (isSigned = false) =>
 	createAppContainer(
 		createSwitchNavigator(
-			{ Login, Register },
+			{
+				Sign: createSwitchNavigator({
+					Login,
+					Register,
+				}),
+			},
 			{
 				initialRouteName: isSigned ? 'App' : 'Login',
 			},

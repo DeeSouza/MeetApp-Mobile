@@ -1,9 +1,12 @@
 import React, { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Image } from 'react-native';
 import logo from '~/assets/images/meetapp-logo.png';
 
 import Background from '~/components/Background';
+
+import { loginRequest } from '~/store/modules/auth/actions';
 
 import {
 	Container,
@@ -15,6 +18,7 @@ import {
 } from './styles';
 
 export default function Login({ navigation }) {
+	const dispatch = useDispatch();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -23,7 +27,9 @@ export default function Login({ navigation }) {
 	/**
 	 * Submit form to login user
 	 */
-	function handleSubmit() {}
+	function handleSubmitLogin() {
+		dispatch(loginRequest(email, password));
+	}
 
 	return (
 		<Background>
@@ -50,11 +56,11 @@ export default function Login({ navigation }) {
 						value={password}
 						onChangeText={setPassword}
 						ref={passwordRef}
-						onSubmitEditing={handleSubmit}
+						onSubmitEditing={handleSubmitLogin}
 						secureTextEntry
 					/>
 
-					<SubmitButton loading={false} onPress={() => {}}>
+					<SubmitButton loading={false} onPress={handleSubmitLogin}>
 						ENTRAR
 					</SubmitButton>
 				</Form>

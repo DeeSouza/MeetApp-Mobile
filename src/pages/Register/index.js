@@ -1,9 +1,12 @@
 import React, { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Image } from 'react-native';
 import logo from '~/assets/images/meetapp-logo.png';
 
 import Background from '~/components/Background';
+
+import { createUserRequest } from '~/store/modules/user/actions';
 
 import {
 	Container,
@@ -15,6 +18,8 @@ import {
 } from './styles';
 
 export default function Register({ navigation }) {
+	const dispatch = useDispatch();
+
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -25,7 +30,9 @@ export default function Register({ navigation }) {
 	/**
 	 * Submit form to register new user
 	 */
-	function handleSubmit() {}
+	function handleSubmitRegister() {
+		dispatch(createUserRequest(name, email, password));
+	}
 
 	return (
 		<Background>
@@ -37,7 +44,6 @@ export default function Register({ navigation }) {
 						icon="person"
 						placeholder="Digite seu nome"
 						autoCorrect={false}
-						autoCapitalize="none"
 						returnKeyType="next"
 						value={name}
 						onChangeText={setName}
@@ -64,11 +70,14 @@ export default function Register({ navigation }) {
 						ref={passwordRef}
 						value={password}
 						onChangeText={setPassword}
-						onSubmitEditing={handleSubmit}
+						onSubmitEditing={handleSubmitRegister}
 						secureTextEntry
 					/>
 
-					<SubmitButton loading={false} onPress={() => {}}>
+					<SubmitButton
+						loading={false}
+						onPress={handleSubmitRegister}
+					>
 						CRIAR
 					</SubmitButton>
 				</Form>
