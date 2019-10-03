@@ -13,6 +13,9 @@ import Dashboard from './pages/Dashboard';
 // Perfil
 import Profile from './pages/Profile';
 
+// Meetups
+import Subscriptions from './pages/Subscriptions';
+
 export default (isSigned = false) =>
 	createAppContainer(
 		createSwitchNavigator(
@@ -24,6 +27,7 @@ export default (isSigned = false) =>
 				App: createBottomTabNavigator(
 					{
 						Dashboard,
+						Subscriptions,
 						Profile,
 					},
 					{
