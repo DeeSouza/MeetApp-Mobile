@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Image } from 'react-native';
 import logo from '~/assets/images/meetapp-logo.png';
@@ -15,6 +15,16 @@ import {
 } from './styles';
 
 export default function Login({ navigation }) {
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+	const passwordRef = useRef();
+
+	/**
+	 * Submit form to login user
+	 */
+	function handleSubmit() {}
+
 	return (
 		<Background>
 			<Container>
@@ -28,11 +38,19 @@ export default function Login({ navigation }) {
 						autoCorrect={false}
 						autoCapitalize="none"
 						returnKeyType="next"
+						value={email}
+						onChangeText={setEmail}
+						onSubmitEditing={() => passwordRef.current.focus()}
 					/>
+
 					<FormInput
 						icon="lock-outline"
 						placeholder="Digite sua senha"
 						returnKeyType="send"
+						value={password}
+						onChangeText={setPassword}
+						ref={passwordRef}
+						onSubmitEditing={handleSubmit}
 						secureTextEntry
 					/>
 
@@ -51,6 +69,6 @@ export default function Login({ navigation }) {
 
 Login.propTypes = {
 	navigation: PropTypes.shape({
-		navigate: PropTypes.func.isRequired,
+		navigate: PropTypes.func,
 	}).isRequired,
 };
