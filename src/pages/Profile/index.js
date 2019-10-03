@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -7,7 +7,7 @@ import Header from '~/components/Header';
 
 import { Container } from './styles';
 
-export default function Profile({ navigation }) {
+export default function Profile() {
 	return (
 		<Background>
 			<Container>
