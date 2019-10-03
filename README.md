@@ -1,6 +1,6 @@
 # MEETAPP - MOBILE
 
-![1](https://img.shields.io/badge/16.9.0-React-green?style=flat-square&logo=react)
+![1](https://img.shields.io/badge/16.9.0-React-blue?style=flat-square&logo=react)
 ![2](https://img.shields.io/badge/0.60.5-React%20Native-purple?style=flat-square&logo=react)
 ![3](https://img.shields.io/badge/1.38.0-Visual%20Studio%20Code-orange?style=flat-square&logo=visual-studio-code)
 ![4](https://img.shields.io/badge/1.17.3-Yarn-lightblue?style=flat-square&logo=yarn)
