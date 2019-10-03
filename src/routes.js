@@ -35,6 +35,8 @@ export default (isSigned = false) =>
 							style: {
 								backgroundColor: settings.tabMenuColor,
 								borderTopColor: settings.tabMenuColor,
+								paddingVertical: 10,
+								height: 64,
 							},
 						},
 					},

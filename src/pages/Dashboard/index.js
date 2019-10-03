@@ -2,17 +2,16 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import logo from '~/assets/images/meetapp-logo.png';
-
 import Background from '~/components/Background';
+import Header from '~/components/Header';
 
-import { Container, Title } from './styles';
+import { Container } from './styles';
 
 export default function Dashboard({ navigation }) {
 	return (
 		<Background>
 			<Container>
-				<Title>aosidoasidsa</Title>
+				<Header />
 			</Container>
 		</Background>
 	);
