@@ -24,3 +24,17 @@ export const NoMeetText = styled.Text`
 	font-weight: bold;
 	margin-top: 5px;
 `;
+
+export const DateSelector = styled.View`
+	margin-top: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+`;
+
+export const DateText = styled.Text`
+	font-size: 20px;
+	color: #fff;
+	margin: 0px 10px;
+`;
