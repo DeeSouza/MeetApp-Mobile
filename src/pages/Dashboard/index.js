@@ -61,7 +61,7 @@ export default function Dashboard() {
 					/>
 				) : (
 					<NoMeet>
-						<Icon name="event-busy" size={38} color="#999" />
+						<Icon name="event-busy" size={30} color="#999" />
 						<NoMeetText>
 							Não existe nenhum meetup nesse dia.
 						</NoMeetText>
