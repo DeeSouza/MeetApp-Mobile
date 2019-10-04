@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { isBefore, parseISO } from 'date-fns';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '~/services/api';
 
@@ -7,7 +8,7 @@ import Background from '~/components/Background';
 import Header from '~/components/Header';
 import Meetup from '~/components/Meetup';
 
-import { Container, ListMeetups, NoMeet } from './styles';
+import { Container, ListMeetups, NoMeet, NoMeetText } from './styles';
 
 export default function Dashboard() {
 	const [meetups, setMeetups] = useState([]);
@@ -16,14 +17,25 @@ export default function Dashboard() {
 	async function loadMeetups() {
 		setRefreshing(true);
 
-		const response = await api.get('meetups', {
-			params: {
-				date: '2019-10-24',
-			},
-		});
+		try {
+			const response = await api.get('meetups', {
+				params: {
+					date: '2019-10-02',
+				},
+			});
 
-		setRefreshing(false);
-		setMeetups(response.data);
+			const data = response.data.map(meet => {
+				return {
+					...meet,
+					passed: isBefore(parseISO(meet.date), new Date()),
+				};
+			});
+
+			setMeetups(data);
+		} catch (err) {
+			setMeetups([]);
+			setRefreshing(false);
+		}
 	}
 
 	/**
@@ -38,7 +50,7 @@ export default function Dashboard() {
 			<Container>
 				<Header />
 
-				{meetups ? (
+				{meetups.length > 0 ? (
 					<ListMeetups
 						data={meetups}
 						refreshing={refreshing}
@@ -48,7 +60,10 @@ export default function Dashboard() {
 					/>
 				) : (
 					<NoMeet>
-						Que pena. Não existe nenhum meetup nesse dia!
+						<Icon name="event-busy" size={38} color="#999" />
+						<NoMeetText>
+							Não existe nenhum meetup nesse dia.
+						</NoMeetText>
 					</NoMeet>
 				)}
 			</Container>

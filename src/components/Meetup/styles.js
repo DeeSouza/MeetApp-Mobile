@@ -4,7 +4,7 @@ import settings from '~/styles/variables';
 export const Container = styled.View`
 	background-color: #fff;
 	display: flex;
-	margin-top: 15px;
+	margin-bottom: 20px;
 `;
 
 export const ImageMeet = styled.Image`
@@ -67,6 +67,21 @@ export const SubmitSubscription = styled.TouchableOpacity`
 `;
 
 export const LinkSubscription = styled.Text`
+	color: #fff;
+	font-weight: bold;
+	font-size: 16px;
+`;
+
+export const Passed = styled.View`
+	background-color: ${settings.secondaryColor};
+	justify-content: center;
+	align-items: center;
+	height: 40px;
+	border-radius: 4px;
+	margin-top: 20px;
+`;
+
+export const PassedText = styled.Text`
 	color: #fff;
 	font-weight: bold;
 	font-size: 16px;

@@ -16,6 +16,8 @@ import {
 	DateText,
 	LinkSubscription,
 	ImageMeet,
+	Passed,
+	PassedText,
 } from './styles';
 
 export default function Meetup({ data }) {
@@ -47,9 +49,15 @@ export default function Meetup({ data }) {
 					<OwnerText>Organizador: {data.users.name}</OwnerText>
 				</Owner>
 
-				<SubmitSubscription>
-					<LinkSubscription>Realizar Inscrição</LinkSubscription>
-				</SubmitSubscription>
+				{data.passed ? (
+					<Passed>
+						<PassedText>Meetup Realizado</PassedText>
+					</Passed>
+				) : (
+					<SubmitSubscription>
+						<LinkSubscription>Realizar Inscrição</LinkSubscription>
+					</SubmitSubscription>
+				)}
 			</InfoMeet>
 		</Container>
 	);
@@ -57,6 +65,7 @@ export default function Meetup({ data }) {
 
 Meetup.propTypes = {
 	data: PropTypes.shape({
+		passed: PropTypes.bool,
 		title: PropTypes.string,
 		date: PropTypes.string,
 		localization: PropTypes.string,

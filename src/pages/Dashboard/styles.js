@@ -12,4 +12,15 @@ export const ListMeetups = styled.FlatList.attrs({
 	},
 })``;
 
-export const NoMeet = styled.Text``;
+export const NoMeet = styled.View`
+	justify-content: center;
+	align-items: center;
+	margin-top: 30px;
+`;
+
+export const NoMeetText = styled.Text`
+	font-size: 16px;
+	color: #fff;
+	font-weight: bold;
+	margin-top: 5px;
+`;
