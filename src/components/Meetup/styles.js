@@ -20,19 +20,39 @@ export const Title = styled.Text`
 	font-weight: bold;
 `;
 
-export const Date = styled.Text`
-	font-size: 15px;
-	color: #999999;
+export const Date = styled.View`
+	align-items: center;
+	flex-direction: row;
 	margin-top: 10px;
 `;
 
-export const Address = styled.Text`
+export const DateText = styled.Text`
 	font-size: 15px;
 	color: #999999;
+	margin-left: 5px;
 `;
-export const Owner = styled.Text`
+
+export const Address = styled.View`
+	align-items: center;
+	flex-direction: row;
+	margin-top: 5px;
+`;
+export const AddressText = styled.Text`
 	font-size: 15px;
 	color: #999999;
+	margin-left: 5px;
+`;
+
+export const Owner = styled.View`
+	align-items: center;
+	flex-direction: row;
+	margin-top: 5px;
+`;
+
+export const OwnerText = styled.Text`
+	font-size: 15px;
+	color: #999999;
+	margin-left: 5px;
 `;
 
 export const SubmitSubscription = styled.TouchableOpacity`

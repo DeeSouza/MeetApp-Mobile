@@ -17,7 +17,11 @@ export default function Dashboard() {
 	 */
 	useEffect(() => {
 		async function loadMeetups() {
-			const response = await api.get('meetups');
+			const response = await api.get('meetups', {
+				params: {
+					date: '2019-10-24',
+				},
+			});
 
 			setMeetups(response.data);
 		}
