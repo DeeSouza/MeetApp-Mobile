@@ -14,6 +14,7 @@ export default function Dashboard() {
 	const [meetups, setMeetups] = useState([]);
 	const [refreshing, setRefreshing] = useState(false);
 
+	// Load all meetups than user logged not is owner
 	async function loadMeetups() {
 		setRefreshing(true);
 
