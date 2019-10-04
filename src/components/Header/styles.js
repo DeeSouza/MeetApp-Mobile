@@ -7,3 +7,8 @@ export const Container = styled.SafeAreaView`
 	justify-content: center;
 	align-items: center;
 `;
+
+export const ImageLogo = styled.Image`
+	width: 24px;
+	height: 24px;
+`;

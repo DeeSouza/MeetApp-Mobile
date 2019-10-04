@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { ActivityIndicator, Image } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Image } from 'react-native';
+
 import logo from '~/assets/images/meetapp-logo.png';
 
 import Background from '~/components/Background';
@@ -19,6 +20,7 @@ import {
 
 export default function Login({ navigation }) {
 	const dispatch = useDispatch();
+	const loading = useSelector(state => state.auth.loading);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -61,7 +63,11 @@ export default function Login({ navigation }) {
 					/>
 
 					<SubmitButton loading={false} onPress={handleSubmitLogin}>
-						ENTRAR
+						{loading ? (
+							<ActivityIndicator size="small" color="#FFF" />
+						) : (
+							<>ENTRAR</>
+						)}
 					</SubmitButton>
 				</Form>
 

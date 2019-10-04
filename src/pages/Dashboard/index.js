@@ -1,17 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import api from '~/services/api';
 
 import Background from '~/components/Background';
 import Header from '~/components/Header';
+import Meetup from '~/components/Meetup';
 
-import { Container } from './styles';
+import { Container, ListMeetups } from './styles';
 
 export default function Dashboard() {
+	const [meetups, setMeetups] = useState([]);
+
+	/**
+	 * Get meetups than user logged can subscription
+	 */
+	useEffect(() => {
+		async function loadMeetups() {
+			const response = await api.get('meetups');
+
+			setMeetups(response.data);
+		}
+
+		loadMeetups();
+	}, []);
+
 	return (
 		<Background>
 			<Container>
 				<Header />
+
+				<ListMeetups
+					data={meetups}
+					keyExtractor={meet => String(meet.id)}
+					renderItem={({ item }) => <Meetup data={item} />}
+				/>
 			</Container>
 		</Background>
 	);
