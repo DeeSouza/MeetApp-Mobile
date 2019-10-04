@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.SafeAreaView`
 	flex: 1;
+	display: flex;
 `;
 
 export const ListMeetups = styled.FlatList.attrs({
@@ -10,3 +11,5 @@ export const ListMeetups = styled.FlatList.attrs({
 		padding: 30,
 	},
 })``;
+
+export const NoMeet = styled.Text``;

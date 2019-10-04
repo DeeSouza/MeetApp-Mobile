@@ -7,25 +7,29 @@ import Background from '~/components/Background';
 import Header from '~/components/Header';
 import Meetup from '~/components/Meetup';
 
-import { Container, ListMeetups } from './styles';
+import { Container, ListMeetups, NoMeet } from './styles';
 
 export default function Dashboard() {
 	const [meetups, setMeetups] = useState([]);
+	const [refreshing, setRefreshing] = useState(false);
+
+	async function loadMeetups() {
+		setRefreshing(true);
+
+		const response = await api.get('meetups', {
+			params: {
+				date: '2019-10-24',
+			},
+		});
+
+		setRefreshing(false);
+		setMeetups(response.data);
+	}
 
 	/**
 	 * Get meetups than user logged can subscription
 	 */
 	useEffect(() => {
-		async function loadMeetups() {
-			const response = await api.get('meetups', {
-				params: {
-					date: '2019-10-24',
-				},
-			});
-
-			setMeetups(response.data);
-		}
-
 		loadMeetups();
 	}, []);
 
@@ -34,11 +38,19 @@ export default function Dashboard() {
 			<Container>
 				<Header />
 
-				<ListMeetups
-					data={meetups}
-					keyExtractor={meet => String(meet.id)}
-					renderItem={({ item }) => <Meetup data={item} />}
-				/>
+				{meetups ? (
+					<ListMeetups
+						data={meetups}
+						refreshing={refreshing}
+						onRefresh={loadMeetups}
+						keyExtractor={meet => String(meet.id)}
+						renderItem={({ item }) => <Meetup data={item} />}
+					/>
+				) : (
+					<NoMeet>
+						Que pena. Não existe nenhum meetup nesse dia!
+					</NoMeet>
+				)}
 			</Container>
 		</Background>
 	);

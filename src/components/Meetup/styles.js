@@ -3,6 +3,8 @@ import settings from '~/styles/variables';
 
 export const Container = styled.View`
 	background-color: #fff;
+	display: flex;
+	margin-top: 15px;
 `;
 
 export const ImageMeet = styled.Image`
@@ -12,7 +14,6 @@ export const ImageMeet = styled.Image`
 
 export const InfoMeet = styled.View`
 	padding: 15px;
-	flex: 1;
 `;
 
 export const Title = styled.Text`
