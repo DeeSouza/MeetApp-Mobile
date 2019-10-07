@@ -85,4 +85,6 @@ Meetup.propTypes = {
 		}).isRequired,
 	}).isRequired,
 	onSubscription: PropTypes.func.isRequired,
+	meetid: PropTypes.number.isRequired,
+	loading: PropTypes.bool.isRequired,
 };
