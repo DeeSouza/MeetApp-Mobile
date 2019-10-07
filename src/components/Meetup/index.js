@@ -20,7 +20,7 @@ import {
 	PassedText,
 } from './styles';
 
-export default function Meetup({ data }) {
+export default function Meetup({ data, onSubscription }) {
 	const dateFormatted = useMemo(
 		() =>
 			format(parseISO(data.date), "d 'de' MMMM', às 'H':'mm'hs'", {
@@ -54,7 +54,7 @@ export default function Meetup({ data }) {
 						<PassedText>Meetup Realizado</PassedText>
 					</Passed>
 				) : (
-					<SubmitSubscription>
+					<SubmitSubscription onPress={() => onSubscription(data.id)}>
 						<LinkSubscription>Realizar Inscrição</LinkSubscription>
 					</SubmitSubscription>
 				)}
@@ -65,6 +65,7 @@ export default function Meetup({ data }) {
 
 Meetup.propTypes = {
 	data: PropTypes.shape({
+		id: PropTypes.number,
 		passed: PropTypes.bool,
 		title: PropTypes.string,
 		date: PropTypes.string,
@@ -76,4 +77,5 @@ Meetup.propTypes = {
 			url: PropTypes.string,
 		}).isRequired,
 	}).isRequired,
+	onSubscription: PropTypes.func.isRequired,
 };

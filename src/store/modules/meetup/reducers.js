@@ -7,22 +7,13 @@ const INITIAL_STATE = {
 export default function meet(state = INITIAL_STATE, action) {
 	return produce(state, draft => {
 		switch (action.type) {
-			case '@meet/CREATE_REQUEST':
+			case '@meet/SUBSCRIPTION_REQUEST':
 				draft.loading = true;
 				break;
-			case '@meet/CREATE_SUCCESS':
+			case '@meet/SUBSCRIPTION_SUCCESS':
 				draft.loading = false;
 				break;
-			case '@meet/CREATE_FAILURE':
-				draft.loading = false;
-				break;
-			case '@meet/UPDATE_REQUEST':
-				draft.loading = true;
-				break;
-			case '@meet/UPDATE_SUCCESS':
-				draft.loading = false;
-				break;
-			case '@meet/UPDATE_FAILURE':
+			case '@meet/SUBSCRIPTION_FAILURE':
 				draft.loading = false;
 				break;
 			case '@meet/CANCEL_REQUEST':

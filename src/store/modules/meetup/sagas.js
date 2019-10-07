@@ -2,52 +2,31 @@ import { Alert } from 'react-native';
 import { takeLatest, call, all, put } from 'redux-saga/effects';
 import api from '~/services/api';
 import {
-	meetUpdateSuccess,
-	meetUpdateFailure,
+	meetSubscriptionSuccess,
+	meetSubscriptionFailure,
 	meetCancelSuccess,
 	meetCancelFailure,
-	meetCreateSuccess,
-	meetCreateFailure,
 } from './actions';
-
-/**
- * Create a meetup
- * @param {object} payload
- */
-export function* createMeet({ payload }) {
-	try {
-		yield call(api.post, '/meetups', payload.meet);
-
-		Alert.alert('Yeeah!', 'Meetup criado com sucesso!');
-
-		yield put(meetCreateSuccess({}));
-	} catch (error) {
-		// Call Action (PUT)
-		yield put(meetCreateFailure());
-
-		// Alert
-		Alert.alert('Atenção!', error.response.data.error);
-	}
-}
 
 /**
  * Update meetup
  * @param {object} payload Data from meet
  */
-export function* updateMeet({ payload }) {
+export function* subscriptionMeet({ payload }) {
 	try {
-		const response = yield call(
-			api.put,
-			`meetups/${payload.id}`,
-			payload.meet,
+		const response = yield call(api.post, `subscriptions`, {
+			meetup_id: payload.id,
+		});
+
+		Alert.alert(
+			'Yeeah!',
+			'Sua inscrição foi efetuada com sucesso. Divirta-se!',
 		);
 
-		Alert.alert('Yeeah!', 'Meetup atualizado com sucesso!');
-
-		yield put(meetUpdateSuccess(response));
+		yield put(meetSubscriptionSuccess(response));
 	} catch (error) {
 		// Call Action (PUT)
-		yield put(meetUpdateFailure());
+		yield put(meetSubscriptionFailure());
 
 		// Alert
 		Alert.alert('Atenção!', error.response.data.error);
@@ -62,9 +41,10 @@ export function* cancelMeet({ payload }) {
 	try {
 		yield call(api.delete, `meetups/${payload.id}`);
 
-		Alert.alert('Yeeah!', 'Meetup cancelado com sucesso!');
-
-		// history.push('/dashboard');
+		Alert.alert(
+			'Yeeah!',
+			'Sua inscrição foi cancelada com sucesso. Que pena!',
+		);
 
 		yield put(meetCancelSuccess());
 	} catch (error) {
@@ -78,7 +58,6 @@ export function* cancelMeet({ payload }) {
 
 // Observers
 export default all([
-	takeLatest('@meet/UPDATE_REQUEST', updateMeet),
+	takeLatest('@meet/SUBSCRIPTION_REQUEST', subscriptionMeet),
 	takeLatest('@meet/CANCEL_REQUEST', cancelMeet),
-	takeLatest('@meet/CREATE_REQUEST', createMeet),
 ]);

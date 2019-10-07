@@ -1,44 +1,24 @@
-// Actions Create
-export function meetCreateRequest(meet) {
+// Actions Request Subscription
+export function meetSubscriptionRequest(id) {
 	return {
-		type: '@meet/CREATE_REQUEST',
-		payload: { meet },
+		type: '@meet/SUBSCRIPTION_REQUEST',
+		payload: { id },
 	};
 }
 
-export function meetCreateSuccess() {
+export function meetSubscriptionSuccess() {
 	return {
-		type: '@meet/CREATE_SUCCESS',
+		type: '@meet/SUBSCRIPTION_SUCCESS',
 	};
 }
 
-export function meetCreateFailure() {
+export function meetSubscriptionFailure() {
 	return {
-		type: '@meet/CREATE_FAILURE',
+		type: '@meet/SUBSCRIPTION_FAILURE',
 	};
 }
 
-// Actions Update
-export function meetUpdateRequest(meet, id) {
-	return {
-		type: '@meet/UPDATE_REQUEST',
-		payload: { meet, id },
-	};
-}
-
-export function meetUpdateSuccess() {
-	return {
-		type: '@meet/UPDATE_SUCCESS',
-	};
-}
-
-export function meetUpdateFailure() {
-	return {
-		type: '@meet/UPDATE_FAILURE',
-	};
-}
-
-// Actions Cancel
+// Actions Cancel Subscription
 export function meetCancelRequest(id) {
 	return {
 		type: '@meet/CANCEL_REQUEST',

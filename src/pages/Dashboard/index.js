@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { ActivityIndicator, ToastAndroid } from 'react-native';
 import PropTypes from 'prop-types';
 import { isBefore, parseISO, subDays, addDays, format } from 'date-fns';
@@ -6,6 +7,8 @@ import pt from 'date-fns/locale/pt';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import api from '~/services/api';
+
+import { meetSubscriptionRequest } from '~/store/modules/meetup/actions';
 
 import Background from '~/components/Background';
 import Header from '~/components/Header';
@@ -22,11 +25,14 @@ import {
 } from './styles';
 
 export default function Dashboard() {
+	const dispatch = useDispatch();
+
 	const [meetups, setMeetups] = useState([]);
 	const [refreshing, setRefreshing] = useState(false);
 	const [date, setDate] = useState(new Date());
 	const [page, setPage] = useState(1);
 	const [loading, setLoading] = useState(false);
+	const subscriptionLoading = useSelector(state => state.meet.loading);
 
 	const dateFormatted = useMemo(
 		() => format(date, "d 'de' MMMM 'de' yyyy", { locale: pt }),
@@ -85,11 +91,13 @@ export default function Dashboard() {
 	}, [date, page]); // eslint-disable-line
 
 	function handlePrevDay() {
+		setMeetups([]);
 		setPage(1);
 		setDate(subDays(date, 1));
 	}
 
 	function handleNextDay() {
+		setMeetups([]);
 		setPage(1);
 		setDate(addDays(date, 1));
 	}
@@ -104,6 +112,11 @@ export default function Dashboard() {
 	// On change page
 	function handleChangePage() {
 		setPage(page + 1);
+	}
+
+	// Request Subscription User
+	function handleSubscription(id) {
+		dispatch(meetSubscriptionRequest(id));
 	}
 
 	return (
@@ -131,7 +144,14 @@ export default function Dashboard() {
 						onEndReached={handleChangePage}
 						onEndReachedThreshold={0.3}
 						keyExtractor={meet => String(meet.id)}
-						renderItem={({ item }) => <Meetup data={item} />}
+						renderItem={({ item }) => (
+							<Meetup
+								data={item}
+								onSubscription={() =>
+									handleSubscription(item.id)
+								}
+							/>
+						)}
 					/>
 				) : (
 					!loading && (
