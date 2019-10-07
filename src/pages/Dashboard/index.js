@@ -151,6 +151,7 @@ export default function Dashboard() {
 								data={item}
 								loading={subscriptionLoading}
 								meetid={id}
+								textButton="Realizar Inscrição"
 								onSubscription={() =>
 									handleSubscription(item.id)
 								}

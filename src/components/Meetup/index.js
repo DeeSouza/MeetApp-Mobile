@@ -21,7 +21,13 @@ import {
 	PassedText,
 } from './styles';
 
-export default function Meetup({ data, onSubscription, meetid, loading }) {
+export default function Meetup({
+	data,
+	onSubscription,
+	meetid,
+	loading,
+	textButton,
+}) {
 	const dateFormatted = useMemo(
 		() =>
 			format(parseISO(data.date), "d 'de' MMMM', às 'H':'mm'hs'", {
@@ -59,9 +65,7 @@ export default function Meetup({ data, onSubscription, meetid, loading }) {
 						{loading && meetid === data.id ? (
 							<ActivityIndicator size="small" color="#FFF" />
 						) : (
-							<LinkSubscription>
-								Realizar Inscrição
-							</LinkSubscription>
+							<LinkSubscription>{textButton}</LinkSubscription>
 						)}
 					</SubmitSubscription>
 				)}
@@ -87,4 +91,5 @@ Meetup.propTypes = {
 	onSubscription: PropTypes.func.isRequired,
 	meetid: PropTypes.number.isRequired,
 	loading: PropTypes.bool.isRequired,
+	textButton: PropTypes.string.isRequired,
 };
