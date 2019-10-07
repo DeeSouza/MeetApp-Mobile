@@ -32,6 +32,7 @@ export default function Dashboard() {
 	const [date, setDate] = useState(new Date());
 	const [page, setPage] = useState(1);
 	const [loading, setLoading] = useState(false);
+	const [id, setId] = useState(0);
 	const subscriptionLoading = useSelector(state => state.meet.loading);
 
 	const dateFormatted = useMemo(
@@ -115,8 +116,9 @@ export default function Dashboard() {
 	}
 
 	// Request Subscription User
-	function handleSubscription(id) {
-		dispatch(meetSubscriptionRequest(id));
+	function handleSubscription(meetid) {
+		setId(meetid);
+		dispatch(meetSubscriptionRequest(meetid));
 	}
 
 	return (
@@ -147,6 +149,8 @@ export default function Dashboard() {
 						renderItem={({ item }) => (
 							<Meetup
 								data={item}
+								loading={subscriptionLoading}
+								meetid={id}
 								onSubscription={() =>
 									handleSubscription(item.id)
 								}

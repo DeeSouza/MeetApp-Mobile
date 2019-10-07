@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 import { parseISO, format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
@@ -20,7 +21,7 @@ import {
 	PassedText,
 } from './styles';
 
-export default function Meetup({ data, onSubscription }) {
+export default function Meetup({ data, onSubscription, meetid, loading }) {
 	const dateFormatted = useMemo(
 		() =>
 			format(parseISO(data.date), "d 'de' MMMM', às 'H':'mm'hs'", {
@@ -55,7 +56,13 @@ export default function Meetup({ data, onSubscription }) {
 					</Passed>
 				) : (
 					<SubmitSubscription onPress={() => onSubscription(data.id)}>
-						<LinkSubscription>Realizar Inscrição</LinkSubscription>
+						{loading && meetid === data.id ? (
+							<ActivityIndicator size="small" color="#FFF" />
+						) : (
+							<LinkSubscription>
+								Realizar Inscrição
+							</LinkSubscription>
+						)}
 					</SubmitSubscription>
 				)}
 			</InfoMeet>
