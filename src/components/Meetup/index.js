@@ -23,7 +23,7 @@ import {
 export default function Meetup({ data }) {
 	const dateFormatted = useMemo(
 		() =>
-			format(parseISO(data.date), "d 'de' MMMM', às 'H'hs'", {
+			format(parseISO(data.date), "d 'de' MMMM', às 'H':'mm'hs'", {
 				locale: pt,
 			}),
 		[data.date],

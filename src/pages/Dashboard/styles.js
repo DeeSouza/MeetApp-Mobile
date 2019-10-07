@@ -8,9 +8,12 @@ export const Container = styled.SafeAreaView`
 export const ListMeetups = styled.FlatList.attrs({
 	showsVerticalScrollIndicator: false,
 	contentContainerStyle: {
-		padding: 30,
+		paddingBottom: 30,
+		paddingHorizontal: 30,
 	},
-})``;
+})`
+	margin-top: 30px;
+`;
 
 export const NoMeet = styled.View`
 	justify-content: center;
@@ -37,4 +40,8 @@ export const DateText = styled.Text`
 	font-size: 20px;
 	color: #fff;
 	margin: 0px 10px;
+`;
+
+export const LoadingMeet = styled.View`
+	margin: 15px auto;
 `;

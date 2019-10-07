@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { ActivityIndicator, ToastAndroid } from 'react-native';
 import PropTypes from 'prop-types';
 import { isBefore, parseISO, subDays, addDays, format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
@@ -17,12 +18,15 @@ import {
 	NoMeetText,
 	DateSelector,
 	DateText,
+	LoadingMeet,
 } from './styles';
 
 export default function Dashboard() {
 	const [meetups, setMeetups] = useState([]);
 	const [refreshing, setRefreshing] = useState(false);
 	const [date, setDate] = useState(new Date());
+	const [page, setPage] = useState(1);
+	const [loading, setLoading] = useState(false);
 
 	const dateFormatted = useMemo(
 		() => format(date, "d 'de' MMMM 'de' yyyy", { locale: pt }),
@@ -36,9 +40,12 @@ export default function Dashboard() {
 		// Load all meetups than user logged not is owner
 		async function loadMeetups() {
 			try {
+				setLoading(true);
+
 				const response = await api.get('meetups', {
 					params: {
 						date,
+						page,
 					},
 				});
 
@@ -49,27 +56,54 @@ export default function Dashboard() {
 					};
 				});
 
-				setMeetups(data);
+				if (page === 1) {
+					setMeetups(data);
+				} else {
+					setMeetups([...meetups, ...data]);
+				}
+
+				setLoading(false);
+				setRefreshing(false);
 			} catch (err) {
-				setMeetups([]);
+				if (page === 1) setMeetups([]);
+				else {
+					ToastAndroid.showWithGravityAndOffset(
+						'Não existem mais meetups à serem mostrados.',
+						ToastAndroid.LONG,
+						ToastAndroid.BOTTOM,
+						25,
+						50,
+					);
+				}
+
+				setLoading(false);
 				setRefreshing(false);
 			}
 		}
 
 		loadMeetups();
-	}, [date]);
+	}, [date, page]); // eslint-disable-line
 
 	function handlePrevDay() {
+		setPage(1);
 		setDate(subDays(date, 1));
 	}
 
 	function handleNextDay() {
+		setPage(1);
 		setDate(addDays(date, 1));
 	}
 
+	// On refreshing from meetups
 	function refreshLoadMeetups() {
 		setRefreshing(true);
 		setDate(new Date());
+		setPage(1);
+	}
+
+	// On change page
+	function handleChangePage() {
+		setPage(page + 1);
 	}
 
 	return (
@@ -94,16 +128,26 @@ export default function Dashboard() {
 						data={meetups}
 						refreshing={refreshing}
 						onRefresh={refreshLoadMeetups}
+						onEndReached={handleChangePage}
+						onEndReachedThreshold={0.3}
 						keyExtractor={meet => String(meet.id)}
 						renderItem={({ item }) => <Meetup data={item} />}
 					/>
 				) : (
-					<NoMeet>
-						<Icon name="event-busy" size={30} color="#999" />
-						<NoMeetText>
-							Não existe nenhum meetup nesse dia.
-						</NoMeetText>
-					</NoMeet>
+					!loading && (
+						<NoMeet>
+							<Icon name="event-busy" size={30} color="#999" />
+							<NoMeetText>
+								Não existe nenhum meetup nesse dia.
+							</NoMeetText>
+						</NoMeet>
+					)
+				)}
+
+				{loading && (
+					<LoadingMeet>
+						<ActivityIndicator size="small" color="#FFF" />
+					</LoadingMeet>
 				)}
 			</Container>
 		</Background>
