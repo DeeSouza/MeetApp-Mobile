@@ -94,7 +94,7 @@ export default function Register({ navigation }) {
 				</Form>
 
 				<SignLink onPress={() => navigation.navigate('Login')}>
-					<SignLinkText>Já tenho login</SignLinkText>
+					<SignLinkText>JÁ TENHO UMA CONTA</SignLinkText>
 				</SignLink>
 			</Container>
 		</Background>
