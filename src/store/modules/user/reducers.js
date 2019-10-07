@@ -3,6 +3,7 @@ import produce from 'immer';
 const INITIAL_STATE = {
 	profile: null,
 	loading: false,
+	redirect: false,
 };
 
 export default function user(state = INITIAL_STATE, action) {
@@ -14,10 +15,12 @@ export default function user(state = INITIAL_STATE, action) {
 			}
 			case '@user/CREATE_SUCCESS': {
 				draft.loading = false;
+				draft.redirect = true;
 				break;
 			}
 			case '@user/CREATE_FAILURE': {
 				draft.loading = false;
+				draft.redirect = false;
 				break;
 			}
 			case '@user/UPDATE_REQUEST': {

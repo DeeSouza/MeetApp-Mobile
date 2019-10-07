@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Image } from 'react-native';
 import logo from '~/assets/images/meetapp-logo.png';
@@ -19,6 +19,8 @@ import {
 
 export default function Register({ navigation }) {
 	const dispatch = useDispatch();
+	const loading = useSelector(state => state.user.loading);
+	const redirect = useSelector(state => state.user.redirect);
 
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
@@ -26,6 +28,15 @@ export default function Register({ navigation }) {
 
 	const emailRef = useRef();
 	const passwordRef = useRef();
+
+	/**
+	 *  Redirect to user login page when user make register
+	 */
+	useEffect(() => {
+		if (redirect) {
+			navigation.navigate('Login');
+		}
+	}, [redirect]); // eslint-disable-line
 
 	/**
 	 * Submit form to register new user
@@ -75,10 +86,10 @@ export default function Register({ navigation }) {
 					/>
 
 					<SubmitButton
-						loading={false}
+						loading={loading}
 						onPress={handleSubmitRegister}
 					>
-						CRIAR
+						CRIAR CONTA
 					</SubmitButton>
 				</Form>
 

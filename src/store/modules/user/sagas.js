@@ -26,7 +26,10 @@ export function* createUser({ payload }) {
 
 		yield put(createUserSuccess());
 	} catch (error) {
-		Alert.alert('Atenção!', error.response.data.error);
+		Alert.alert(
+			'Atenção!',
+			'Houve um problema ao criar o usuário. Tente novamente mais tarde.',
+		);
 
 		yield put(createUserFailure());
 	}
@@ -46,7 +49,10 @@ export function* updateUser({ payload }) {
 
 		yield put(updateUserSuccess(response.data));
 	} catch (error) {
-		Alert.alert('Atenção!', error.response.data.error);
+		Alert.alert(
+			'Atenção!',
+			'Houve um problema ao atualizar o usuário. Tente novamente mais tarde.',
+		);
 
 		yield put(updateUserFailure());
 	}

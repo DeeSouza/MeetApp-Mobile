@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ActivityIndicator, Image } from 'react-native';
+import { Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -21,6 +21,7 @@ import {
 export default function Login({ navigation }) {
 	const dispatch = useDispatch();
 	const loading = useSelector(state => state.auth.loading);
+
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -62,12 +63,8 @@ export default function Login({ navigation }) {
 						secureTextEntry
 					/>
 
-					<SubmitButton loading={false} onPress={handleSubmitLogin}>
-						{loading ? (
-							<ActivityIndicator size="small" color="#FFF" />
-						) : (
-							<>ENTRAR</>
-						)}
+					<SubmitButton loading={loading} onPress={handleSubmitLogin}>
+						ENTRAR
 					</SubmitButton>
 				</Form>
 
