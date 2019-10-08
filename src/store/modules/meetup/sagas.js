@@ -14,7 +14,7 @@ import {
  */
 export function* subscriptionMeet({ payload }) {
 	try {
-		const response = yield call(api.post, `subscriptions`, {
+		yield call(api.post, `subscriptions`, {
 			meetup_id: payload.id,
 		});
 
@@ -23,7 +23,7 @@ export function* subscriptionMeet({ payload }) {
 			'Sua inscrição foi efetuada com sucesso. Divirta-se!',
 		);
 
-		yield put(meetSubscriptionSuccess(response));
+		yield put(meetSubscriptionSuccess());
 	} catch (error) {
 		// Call Action (PUT)
 		yield put(meetSubscriptionFailure());
@@ -39,14 +39,14 @@ export function* subscriptionMeet({ payload }) {
  */
 export function* cancelMeet({ payload }) {
 	try {
-		const response = yield call(api.delete, `subscriptions/${payload.id}`);
+		yield call(api.delete, `subscriptions/${payload.id}`);
 
 		Alert.alert(
 			'Atenção!',
 			'Sua inscrição foi cancelada com sucesso. Que pena!',
 		);
 
-		yield put(meetCancelSuccess(response));
+		yield put(meetCancelSuccess());
 	} catch (error) {
 		// Call Action (PUT)
 		yield put(meetCancelFailure());

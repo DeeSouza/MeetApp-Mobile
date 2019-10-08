@@ -69,6 +69,7 @@ function Subscriptions({ isFocused }) {
 	}, [isFocused]);
 
 	useEffect(() => {
+		console.tron.log(statusCancel);
 		if (statusCancel) {
 			setMeetups(meetups.filter(item => item.id !== id));
 		}

@@ -19,13 +19,15 @@ export default function meet(state = INITIAL_STATE, action) {
 				break;
 			case '@meet/CANCEL_REQUEST':
 				draft.loading = true;
+				draft.status = false;
 				break;
 			case '@meet/CANCEL_SUCCESS':
 				draft.loading = false;
-				draft.status = action.payload.status;
+				draft.status = true;
 				break;
 			case '@meet/CANCEL_FAILURE':
 				draft.loading = false;
+				draft.status = false;
 				break;
 			default:
 		}
