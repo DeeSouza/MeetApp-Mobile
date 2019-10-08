@@ -49,6 +49,9 @@ export default function Dashboard() {
 			try {
 				setLoading(true);
 
+				// OnRefresh Set 0 in Page to Effect
+				if (page === 0) setPage(1);
+
 				const response = await api.get('meetups', {
 					params: {
 						date,
@@ -106,13 +109,12 @@ export default function Dashboard() {
 	// On refreshing from meetups
 	function refreshLoadMeetups() {
 		setRefreshing(true);
-		setDate(new Date());
-		setPage(1);
+		setPage(0);
 	}
 
 	// On change page
 	function handleChangePage() {
-		setPage(page + 1);
+		if (meetups.length >= 10) setPage(page + 1);
 	}
 
 	// Request Subscription User
@@ -144,7 +146,7 @@ export default function Dashboard() {
 						refreshing={refreshing}
 						onRefresh={refreshLoadMeetups}
 						onEndReached={handleChangePage}
-						onEndReachedThreshold={0.3}
+						onEndReachedThreshold={0.5}
 						keyExtractor={meet => String(meet.id)}
 						renderItem={({ item }) => (
 							<Meetup
