@@ -11,7 +11,7 @@ Essa aplicação será utilizada para se inscrever em meetups e não contará co
 
 ## Important
 
-Essa aplicação funciona apenas em dispositivos com sistema operacional Android. Isto é, não foi testado e nem executado em um sistema operacional iOS por falta de equipamento.
+Essa aplicação funciona apenas em dispositivos com sistema operacional **Android**. Isto é, não foi testado e nem executado em um sistema operacional iOS por falta de equipamento.
 
 ### Device Test:
 
@@ -58,6 +58,6 @@ Essa aplicação funciona apenas em dispositivos com sistema operacional Android
 
 | Item | Value     |
 | ---- | --------- |
-| Port | 8081      |
 | Host | localhost |
+| Port | 8081      |
 ---
