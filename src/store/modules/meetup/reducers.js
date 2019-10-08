@@ -2,6 +2,7 @@ import produce from 'immer';
 
 const INITIAL_STATE = {
 	loading: false,
+	status: false,
 };
 
 export default function meet(state = INITIAL_STATE, action) {
@@ -20,10 +21,11 @@ export default function meet(state = INITIAL_STATE, action) {
 				draft.loading = true;
 				break;
 			case '@meet/CANCEL_SUCCESS':
-				draft.loading = true;
+				draft.loading = false;
+				draft.status = action.payload.status;
 				break;
 			case '@meet/CANCEL_FAILURE':
-				draft.loading = true;
+				draft.loading = false;
 				break;
 			default:
 		}

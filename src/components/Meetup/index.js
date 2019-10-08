@@ -23,7 +23,7 @@ import {
 
 export default function Meetup({
 	data,
-	onSubscription,
+	onActionMeetup,
 	meetid,
 	loading,
 	textButton,
@@ -61,7 +61,7 @@ export default function Meetup({
 						<PassedText>Meetup Realizado</PassedText>
 					</Passed>
 				) : (
-					<SubmitSubscription onPress={() => onSubscription(data.id)}>
+					<SubmitSubscription onPress={() => onActionMeetup(data.id)}>
 						{loading && meetid === data.id ? (
 							<ActivityIndicator size="small" color="#FFF" />
 						) : (
@@ -88,7 +88,7 @@ Meetup.propTypes = {
 			url: PropTypes.string,
 		}).isRequired,
 	}).isRequired,
-	onSubscription: PropTypes.func.isRequired,
+	onActionMeetup: PropTypes.func.isRequired,
 	meetid: PropTypes.number.isRequired,
 	loading: PropTypes.bool.isRequired,
 	textButton: PropTypes.string.isRequired,

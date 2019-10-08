@@ -39,14 +39,14 @@ export function* subscriptionMeet({ payload }) {
  */
 export function* cancelMeet({ payload }) {
 	try {
-		yield call(api.delete, `meetups/${payload.id}`);
+		const response = yield call(api.delete, `subscriptions/${payload.id}`);
 
 		Alert.alert(
-			'Yeeah!',
+			'Atenção!',
 			'Sua inscrição foi cancelada com sucesso. Que pena!',
 		);
 
-		yield put(meetCancelSuccess());
+		yield put(meetCancelSuccess(response));
 	} catch (error) {
 		// Call Action (PUT)
 		yield put(meetCancelFailure());

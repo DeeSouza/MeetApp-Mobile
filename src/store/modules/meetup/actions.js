@@ -26,9 +26,12 @@ export function meetCancelRequest(id) {
 	};
 }
 
-export function meetCancelSuccess() {
+export function meetCancelSuccess({ status }) {
 	return {
 		type: '@meet/CANCEL_SUCCESS',
+		payload: {
+			status,
+		},
 	};
 }
 
