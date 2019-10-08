@@ -1,5 +1,6 @@
 import { Platform } from 'react-native';
 import styled from 'styled-components/native';
+import settings from '~/styles/variables';
 
 import Input from '~/components/Input';
 import Button from '~/components/Button';
@@ -10,13 +11,17 @@ export const Container = styled.KeyboardAvoidingView.attrs({
 })`
 	flex: 1;
 	justify-content: center;
-	align-items: center;
-	padding: 0 30px;
+	align-items: stretch;
+	display: flex;
 `;
 
-export const Form = styled.View`
+export const Form = styled.ScrollView.attrs({
+	showsVerticalScrollIndicator: false,
+	contentContainerStyle: {
+		padding: 30,
+	},
+})`
 	align-self: stretch;
-	margin-top: 50px;
 `;
 
 export const FormInput = styled(Input)`
@@ -41,4 +46,9 @@ export const Separator = styled.View`
 	height: 1px;
 	background: rgba(255, 255, 255, 0.2);
 	margin: 20px 30px;
+`;
+
+export const Logout = styled(Button)`
+	margin-top: 10px;
+	background: ${settings.secondaryColor};
 `;

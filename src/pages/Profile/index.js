@@ -1,15 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import logo from '~/assets/images/meetapp-logo.png';
 
 import Background from '~/components/Background';
+import Header from '~/components/Header';
 
+import { logoutRequest } from '~/store/modules/auth/actions';
 import { updateUserRequest } from '~/store/modules/user/actions';
 
-import { Container, Form, FormInput, SubmitButton, Separator } from './styles';
+import {
+	Container,
+	Form,
+	FormInput,
+	SubmitButton,
+	Separator,
+	Logout,
+} from './styles';
 
 export default function Profile() {
 	const dispatch = useDispatch();
@@ -49,10 +56,14 @@ export default function Profile() {
 		dispatch(updateUserRequest(data));
 	}
 
+	function handleLogout() {
+		dispatch(logoutRequest());
+	}
+
 	return (
 		<Background>
 			<Container>
-				<Image source={logo} />
+				<Header />
 
 				<Form>
 					<FormInput
@@ -118,6 +129,8 @@ export default function Profile() {
 					<SubmitButton loading={loading} onPress={handleSubmit}>
 						ATUALIZAR CONTA
 					</SubmitButton>
+
+					<Logout onPress={handleLogout}>SAIR</Logout>
 				</Form>
 			</Container>
 		</Background>
