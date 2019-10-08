@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ActivityIndicator, ToastAndroid } from 'react-native';
+import {
+	ActivityIndicator,
+	ToastAndroid,
+	Modal,
+	TouchableOpacity,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import { isBefore, parseISO, subDays, addDays, format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import api from '~/services/api';
 
 import { meetSubscriptionRequest } from '~/store/modules/meetup/actions';
@@ -22,6 +26,9 @@ import {
 	DateSelector,
 	DateText,
 	LoadingMeet,
+	TextDescription,
+	ButtonClose,
+	ButtonCloseText,
 } from './styles';
 
 export default function Dashboard() {
@@ -33,6 +40,10 @@ export default function Dashboard() {
 	const [page, setPage] = useState(1);
 	const [loading, setLoading] = useState(false);
 	const [id, setId] = useState(0);
+
+	const [modalVisible, setModalVisible] = useState(false);
+	const [descriptionMeet, setDescriptionMeet] = useState('');
+
 	const subscriptionLoading = useSelector(state => state.meet.loading);
 
 	const dateFormatted = useMemo(
@@ -90,7 +101,7 @@ export default function Dashboard() {
 				setRefreshing(false);
 			}
 		}
-
+		setModalVisible(false);
 		loadMeetups();
 	}, [date, page]); // eslint-disable-line
 
@@ -121,6 +132,12 @@ export default function Dashboard() {
 	function handleSubscription(meetid) {
 		setId(meetid);
 		dispatch(meetSubscriptionRequest(meetid));
+	}
+
+	// View Modal
+	function handleViewModal(description) {
+		setDescriptionMeet(description);
+		setModalVisible(true);
 	}
 
 	return (
@@ -157,6 +174,9 @@ export default function Dashboard() {
 								onActionMeetup={() =>
 									handleSubscription(item.id)
 								}
+								onViewDetail={() =>
+									handleViewModal(item.description)
+								}
 							/>
 						)}
 					/>
@@ -177,6 +197,18 @@ export default function Dashboard() {
 					</LoadingMeet>
 				)}
 			</Container>
+
+			<Modal
+				animationType="slide"
+				transparent={false}
+				visible={modalVisible}
+			>
+				<TextDescription>{descriptionMeet}</TextDescription>
+
+				<ButtonClose onPress={() => setModalVisible(false)}>
+					<ButtonCloseText>FECHAR</ButtonCloseText>
+				</ButtonClose>
+			</Modal>
 		</Background>
 	);
 }

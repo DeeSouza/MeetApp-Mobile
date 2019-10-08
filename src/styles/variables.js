@@ -6,4 +6,5 @@ export default {
 	statusBarColor: '#402845',
 	linearGradientPrimary: '#402845',
 	linearGradiendSecondary: '#22202c',
+	buttonDetailColor: '#00aaff',
 };

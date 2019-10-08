@@ -56,6 +56,22 @@ export const OwnerText = styled.Text`
 	margin-left: 5px;
 `;
 
+export const Details = styled.TouchableOpacity`
+	background-color: ${settings.buttonDetailColor};
+	color: #fff;
+	justify-content: center;
+	align-items: center;
+	height: 40px;
+	border-radius: 4px;
+	margin-top: 20px;
+`;
+
+export const DetailsText = styled.Text`
+	color: #fff;
+	font-weight: bold;
+	font-size: 16px;
+`;
+
 export const SubmitSubscription = styled.TouchableOpacity`
 	background-color: ${settings.primaryColor};
 	color: #fff;
@@ -63,7 +79,7 @@ export const SubmitSubscription = styled.TouchableOpacity`
 	align-items: center;
 	height: 40px;
 	border-radius: 4px;
-	margin-top: 20px;
+	margin-top: 5px;
 `;
 
 export const LinkSubscription = styled.Text`

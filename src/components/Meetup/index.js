@@ -19,11 +19,14 @@ import {
 	ImageMeet,
 	Passed,
 	PassedText,
+	Details,
+	DetailsText,
 } from './styles';
 
 export default function Meetup({
 	data,
 	onActionMeetup,
+	onViewDetail,
 	meetid,
 	loading,
 	textButton,
@@ -56,6 +59,10 @@ export default function Meetup({
 					<OwnerText>Organizador: {data.users.name}</OwnerText>
 				</Owner>
 
+				<Details onPress={() => onViewDetail(data.description)}>
+					<DetailsText>Detalhes</DetailsText>
+				</Details>
+
 				{data.passed ? (
 					<Passed>
 						<PassedText>Meetup Realizado</PassedText>
@@ -81,6 +88,7 @@ Meetup.propTypes = {
 		title: PropTypes.string,
 		date: PropTypes.string,
 		localization: PropTypes.string,
+		description: PropTypes.string,
 		users: PropTypes.shape({
 			name: PropTypes.string,
 		}).isRequired,
@@ -89,6 +97,7 @@ Meetup.propTypes = {
 		}).isRequired,
 	}).isRequired,
 	onActionMeetup: PropTypes.func.isRequired,
+	onViewDetail: PropTypes.func.isRequired,
 	meetid: PropTypes.number.isRequired,
 	loading: PropTypes.bool.isRequired,
 	textButton: PropTypes.string.isRequired,
