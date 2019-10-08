@@ -16,6 +16,7 @@ import {
 	SubmitButton,
 	Separator,
 	Logout,
+	ErrorField,
 } from './styles';
 
 export default function Profile() {
@@ -30,6 +31,11 @@ export default function Profile() {
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 
+	const [errorField, setErrorField] = useState({
+		tName: false,
+		tEmail: false,
+	});
+
 	const emailRef = useRef();
 	const oldPasswordRef = useRef();
 	const passwordRef = useRef();
@@ -39,12 +45,23 @@ export default function Profile() {
 		setOldPassword('');
 		setPassword('');
 		setConfirmPassword('');
+
+		setErrorField({
+			tName: false,
+			tEmail: false,
+		});
 	}, [profile]);
 
 	/**
 	 * Submit form to update user
 	 */
 	function handleSubmit() {
+		setErrorField({
+			...errorField,
+			tName: name.length > 0,
+			tEmail: email.length > 0,
+		});
+
 		const data = {
 			name,
 			email,
@@ -53,9 +70,11 @@ export default function Profile() {
 			confirmPassword,
 		};
 
-		dispatch(updateUserRequest(data));
+		if (name.length > 0 && email.length > 0)
+			dispatch(updateUserRequest(data));
 	}
 
+	// Logout
 	function handleLogout() {
 		dispatch(logoutRequest());
 	}
@@ -76,6 +95,12 @@ export default function Profile() {
 						onSubmitEditing={() => emailRef.current.focus()}
 					/>
 
+					{!errorField.tName && (
+						<ErrorField>
+							Campo de preenchimento obrigatório.
+						</ErrorField>
+					)}
+
 					<FormInput
 						icon="mail-outline"
 						placeholder="Digite seu e-mail"
@@ -88,6 +113,12 @@ export default function Profile() {
 						onChangeText={setEmail}
 						onSubmitEditing={() => passwordRef.current.focus()}
 					/>
+
+					{!errorField.tEmail && (
+						<ErrorField>
+							Campo de preenchimento obrigatório.
+						</ErrorField>
+					)}
 
 					<Separator />
 

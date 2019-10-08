@@ -52,3 +52,8 @@ export const Logout = styled(Button)`
 	margin-top: 10px;
 	background: ${settings.secondaryColor};
 `;
+
+export const ErrorField = styled.Text`
+	color: #fff;
+	margin-top: -5px;
+`;
