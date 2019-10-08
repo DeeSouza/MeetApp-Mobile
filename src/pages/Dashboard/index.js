@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
 	ActivityIndicator,
 	ToastAndroid,
-	Modal,
 	TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
@@ -17,6 +16,7 @@ import { meetSubscriptionRequest } from '~/store/modules/meetup/actions';
 import Background from '~/components/Background';
 import Header from '~/components/Header';
 import Meetup from '~/components/Meetup';
+import ModalDetail from '~/components/ModalDetail';
 
 import {
 	Container,
@@ -26,9 +26,6 @@ import {
 	DateSelector,
 	DateText,
 	LoadingMeet,
-	TextDescription,
-	ButtonClose,
-	ButtonCloseText,
 } from './styles';
 
 export default function Dashboard() {
@@ -101,7 +98,7 @@ export default function Dashboard() {
 				setRefreshing(false);
 			}
 		}
-		setModalVisible(false);
+
 		loadMeetups();
 	}, [date, page]); // eslint-disable-line
 
@@ -198,17 +195,11 @@ export default function Dashboard() {
 				)}
 			</Container>
 
-			<Modal
-				animationType="slide"
-				transparent={false}
+			<ModalDetail
+				onClose={() => setModalVisible(false)}
 				visible={modalVisible}
-			>
-				<TextDescription>{descriptionMeet}</TextDescription>
-
-				<ButtonClose onPress={() => setModalVisible(false)}>
-					<ButtonCloseText>FECHAR</ButtonCloseText>
-				</ButtonClose>
-			</Modal>
+				description={descriptionMeet}
+			/>
 		</Background>
 	);
 }

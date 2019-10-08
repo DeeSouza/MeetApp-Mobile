@@ -94,7 +94,7 @@ export const Passed = styled.View`
 	align-items: center;
 	height: 40px;
 	border-radius: 4px;
-	margin-top: 20px;
+	margin-top: 5px;
 `;
 
 export const PassedText = styled.Text`

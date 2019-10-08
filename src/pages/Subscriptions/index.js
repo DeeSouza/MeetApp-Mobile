@@ -10,6 +10,7 @@ import api from '~/services/api';
 import Background from '~/components/Background';
 import Header from '~/components/Header';
 import Meetup from '~/components/Meetup';
+import ModalDetail from '~/components/ModalDetail';
 
 import { meetCancelRequest } from '~/store/modules/meetup/actions';
 
@@ -30,6 +31,9 @@ function Subscriptions({ isFocused }) {
 
 	const cancelLoading = useSelector(state => state.meet.loading);
 	const statusCancel = useSelector(state => state.meet.status);
+
+	const [modalVisible, setModalVisible] = useState(false);
+	const [descriptionMeet, setDescriptionMeet] = useState('');
 
 	/**
 	 * Get meetups than user logged can subscription
@@ -87,6 +91,12 @@ function Subscriptions({ isFocused }) {
 		dispatch(meetCancelRequest(meetid));
 	}
 
+	// View Modal
+	function handleViewModal(description) {
+		setDescriptionMeet(description);
+		setModalVisible(true);
+	}
+
 	return (
 		<Background>
 			<Container>
@@ -106,6 +116,9 @@ function Subscriptions({ isFocused }) {
 								meetid={id}
 								onActionMeetup={() =>
 									handleCancelSubscription(item.id)
+								}
+								onViewDetail={() =>
+									handleViewModal(item.description)
 								}
 							/>
 						)}
@@ -127,6 +140,12 @@ function Subscriptions({ isFocused }) {
 					</LoadingMeet>
 				)}
 			</Container>
+
+			<ModalDetail
+				onClose={() => setModalVisible(false)}
+				visible={modalVisible}
+				description={descriptionMeet}
+			/>
 		</Background>
 	);
 }
